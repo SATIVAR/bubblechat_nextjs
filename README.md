@@ -1,6 +1,6 @@
 ## Bubblechat Platform PRD (Revisado)
 
-### 1. Visão Geral
+### 1. Visão Geral.
 
 **Bubblechat** é uma plataforma SaaS multi-tenant para gerenciamento de agentes de IA, focada em atendimento automatizado e geração de orçamentos a partir de documentos. O sistema conta com:
 
