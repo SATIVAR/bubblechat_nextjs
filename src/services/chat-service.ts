@@ -19,9 +19,7 @@ class ChatService {
       return aiResponse;
     } catch (error) {
       console.error("Error generating AI response:", error);
-      // Depending on requirements, you might want to throw the error
-      // or handle it gracefully by returning null or a default message.
-      return null;
+      return "Desculpe, ocorreu um erro ao tentar processar sua solicitação.";
     }
   }
 }
