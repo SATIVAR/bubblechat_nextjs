@@ -1,8 +1,8 @@
 "use server";
 
-import { extractDocumentData } from "@/ai/flows/extract-document-data";
-import { generateQuotation } from "@/ai/flows/generate-quotation";
 import { z } from "zod";
+import { ai } from "@/ai/genkit";
+import { Message, Part, Role } from "genkit/experimental/ai";
 
 const fileToDataURI = async (file: File): Promise<string> => {
   const arrayBuffer = await file.arrayBuffer();
@@ -10,69 +10,74 @@ const fileToDataURI = async (file: File): Promise<string> => {
   return `data:${file.type};base64,${buffer.toString("base64")}`;
 };
 
-const formSchema = z.object({
-  document: z.instanceof(File).refine((file) => file.size > 0, { message: "O documento é obrigatório." }),
-  historicalData: z.string().optional(),
-  adminParams: z.string().optional(),
+const chatSchema = z.object({
+  message: z.string().min(1, { message: "A mensagem não pode estar vazia." }),
+  history: z.string().optional(), // JSON string of historical messages
+  file: z.instanceof(File).optional(),
 });
 
-type State = {
+type ChatState = {
   status: "idle" | "loading" | "success" | "error";
   message: string;
-  extractedData?: string;
-  quotation?: string;
+  chatHistory?: { role: Role; content: Part[] }[];
 };
 
-export async function handleGenerateQuotation(
-  prevState: State,
+export async function handleChat(
+  prevState: ChatState,
   formData: FormData
-): Promise<State> {
+): Promise<ChatState> {
   try {
-    const validatedFields = formSchema.safeParse({
-      document: formData.get("document"),
-      historicalData: formData.get("historicalData"),
-      adminParams: formData.get("adminParams"),
+    const validatedFields = chatSchema.safeParse({
+      message: formData.get("message"),
+      history: formData.get("history"),
+      file: formData.get("file"),
     });
 
     if (!validatedFields.success) {
       return {
         status: "error",
-        message: "Dados do formulário inválidos. Por favor, verifique seus dados.",
+        message: "Dados do formulário inválidos.",
+        chatHistory: prevState.chatHistory,
       };
     }
     
-    const { document, historicalData, adminParams } = validatedFields.data;
+    const { message, history, file } = validatedFields.data;
 
-    const documentDataUri = await fileToDataURI(document);
+    const parsedHistory: Message[] = history ? JSON.parse(history) : [];
 
-    const extractionResult = await extractDocumentData({ documentDataUri });
+    const userMessage: Part[] = [{ text: message }];
 
-    if (!extractionResult?.extractedData) {
-      return {
-        status: "error",
-        message: "Falha ao extrair dados do documento.",
-      };
+    if (file && file.size > 0) {
+      const media = await fileToDataURI(file);
+      userMessage.push({ media: { url: media, contentType: file.type } });
     }
-    
-    const quotationResult = await generateQuotation({
-        extractedData: extractionResult.extractedData,
-        historicalClientData: historicalData,
-        adminDefinedParameters: adminParams || "Modelo de precificação padrão"
+
+    const { response } = await ai.generate({
+      prompt: {
+        messages: [...parsedHistory, { role: 'user', content: userMessage }],
+      },
+      model: ai.model("googleai/gemini-2.0-flash"),
     });
 
-    if (!quotationResult?.quotation) {
-        return {
-            status: "error",
-            message: "Falha ao gerar a cotação.",
-            extractedData: extractionResult.extractedData,
-        }
+    const aiResponse = response.text;
+    if (!aiResponse) {
+      return {
+        status: "error",
+        message: "A IA não conseguiu gerar uma resposta.",
+        chatHistory: parsedHistory,
+      };
     }
+    
+    const newHistory = [
+      ...parsedHistory,
+      { role: "user" as const, content: userMessage },
+      { role: "model" as const, content: [{ text: aiResponse }] },
+    ];
 
     return {
       status: "success",
-      message: "Cotação gerada com sucesso.",
-      extractedData: extractionResult.extractedData,
-      quotation: quotationResult.quotation,
+      message: "Resposta recebida.",
+      chatHistory: newHistory,
     };
 
   } catch (error) {
@@ -81,6 +86,7 @@ export async function handleGenerateQuotation(
     return {
       status: "error",
       message: `Ocorreu um erro: ${errorMessage}`,
+      chatHistory: prevState.chatHistory,
     };
   }
 }

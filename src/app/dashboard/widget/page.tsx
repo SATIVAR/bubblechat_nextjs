@@ -3,14 +3,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Copy } from "lucide-react";
 
 export default function WidgetPage() {
-  const embedCode = `<script src="https://docuquota.com/widget.js" data-id="SEU_ID_UNICO" async defer></script>`;
+  const embedCode = `<script src="https://bubblechat.com/widget.js" data-id="SEU_ID_UNICO" async defer></script>`;
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold font-headline">Integração do Widget</h1>
         <p className="text-muted-foreground">
-          Incorpore o widget DocuQuota em seu site para permitir que os clientes carreguem documentos diretamente.
+          Incorpore o widget Bubble Chat em seu site para permitir que os clientes interajam com sua IA.
         </p>
       </div>
 
@@ -18,7 +18,7 @@ export default function WidgetPage() {
         <CardHeader>
           <CardTitle>Código de Incorporação</CardTitle>
           <CardDescription>
-            Copie e cole este código na seção `<head>` ou `<body>` do HTML do seu site.
+            Copie e cole este código na seção `<body>` do HTML do seu site.
           </CardDescription>
         </CardHeader>
         <CardContent>

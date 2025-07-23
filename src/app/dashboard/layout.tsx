@@ -13,12 +13,12 @@ import {
   SidebarMenuButton,
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { FileText, History, Code, Settings, BotMessageSquare } from "lucide-react";
+import { MessageSquare, History, Code, Settings, BotMessageSquare } from "lucide-react";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { href: "/dashboard", label: "Gerar Cotação", icon: FileText },
+  { href: "/dashboard", label: "Chat", icon: MessageSquare },
   { href: "/dashboard/history", label: "Histórico", icon: History },
   { href: "/dashboard/widget", label: "Widget", icon: Code },
   { href: "/dashboard/settings", label: "Configurações", icon: Settings },
@@ -40,7 +40,7 @@ export default function DashboardLayout({
                <BotMessageSquare className="w-6 h-6" />
             </div>
             <h1 className="text-xl font-headline font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-              DocuQuota
+              Bubble Chat
             </h1>
           </div>
         </SidebarHeader>

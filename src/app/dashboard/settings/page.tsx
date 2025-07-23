@@ -28,7 +28,7 @@ export default function SettingsPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">E-mail</Label>
-              <Input id="email" type="email" defaultValue="admin@docuquota.com" />
+              <Input id="email" type="email" defaultValue="admin@bubblechat.com" />
             </div>
           </CardContent>
           <CardFooter>
@@ -46,7 +46,7 @@ export default function SettingsPage() {
               <Label htmlFor="email-notifications" className="flex flex-col space-y-1">
                 <span>Notificações por E-mail</span>
                 <span className="font-normal leading-snug text-muted-foreground">
-                  Receba um e-mail quando uma nova cotação for gerada.
+                  Receba um e-mail para novas interações importantes.
                 </span>
               </Label>
               <Switch id="email-notifications" defaultChecked />
@@ -55,7 +55,7 @@ export default function SettingsPage() {
               <Label htmlFor="webhook-notifications" className="flex flex-col space-y-1">
                 <span>Notificações via Webhook</span>
                  <span className="font-normal leading-snug text-muted-foreground">
-                  Envie um webhook para eventos de nova cotação.
+                  Envie um webhook para eventos do chat.
                 </span>
               </Label>
               <Switch id="webhook-notifications" />
@@ -76,7 +76,7 @@ export default function SettingsPage() {
             <div className="space-y-2">
               <Label htmlFor="api-key">Chave de API</Label>
               <div className="flex items-center gap-2">
-                <Input id="api-key" readOnly value="dq_***************************" />
+                <Input id="api-key" readOnly value="bc_***************************" />
                 <Button variant="outline">Gerar Novamente</Button>
               </div>
             </div>

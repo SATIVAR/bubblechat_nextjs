@@ -1,15 +1,15 @@
-import { GenerateQuoteForm } from "@/components/dashboard/generate-quote-form";
+import { ChatInterface } from "@/components/dashboard/chat-interface";
 
-export default function GenerateQuotePage() {
+export default function ChatPage() {
   return (
     <div className="space-y-6">
        <div>
-        <h1 className="text-3xl font-bold font-headline">Cotação Inteligente</h1>
+        <h1 className="text-3xl font-bold font-headline">Bubble Chat</h1>
         <p className="text-muted-foreground">
-          Carregue um documento para analisar seus dados e gerar uma cotação dinâmica.
+          Comece uma conversa com nossa IA. Envie uma mensagem para começar.
         </p>
       </div>
-      <GenerateQuoteForm />
+      <ChatInterface />
     </div>
   );
 }
