@@ -1,8 +1,9 @@
+
 "use server";
 
 import { z } from "zod";
-import { ai } from "@/ai/genkit";
 import { Message, Part, Role } from "genkit/experimental/ai";
+import { chatService } from "@/services/chat-service";
 
 const fileToDataURI = async (file: File): Promise<string> => {
   const arrayBuffer = await file.arrayBuffer();
@@ -45,22 +46,16 @@ export async function handleChat(
 
     const parsedHistory: Message[] = history ? JSON.parse(history) : [];
 
-    const userMessage: Part[] = [{ text: message }];
+    const userMessageContent: Part[] = [{ text: message }];
 
     if (file && file.size > 0) {
       const media = await fileToDataURI(file);
-      userMessage.push({ media: { url: media, contentType: file.type } });
+      userMessageContent.push({ media: { url: media, contentType: file.type } });
     }
 
-    const { response } = await ai.generate({
-      prompt: {
-        messages: [...parsedHistory, { role: 'user', content: userMessage }],
-      },
-      model: ai.model("googleai/gemini-2.0-flash"),
-    });
+    const aiResponseText = await chatService.generateResponse(parsedHistory, userMessageContent);
 
-    const aiResponse = response.text;
-    if (!aiResponse) {
+    if (!aiResponseText) {
       return {
         status: "error",
         message: "A IA não conseguiu gerar uma resposta.",
@@ -70,8 +65,8 @@ export async function handleChat(
     
     const newHistory = [
       ...parsedHistory,
-      { role: "user" as const, content: userMessage },
-      { role: "model" as const, content: [{ text: aiResponse }] },
+      { role: "user" as const, content: userMessageContent },
+      { role: "model" as const, content: [{ text: aiResponseText }] },
     ];
 
     return {
