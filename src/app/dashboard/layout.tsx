@@ -1,8 +1,10 @@
+
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   SidebarProvider,
   Sidebar,
@@ -13,9 +15,8 @@ import {
   SidebarMenuButton,
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { MessageSquare, History, Code, Settings, BotMessageSquare } from "lucide-react";
+import { MessageSquare, History, Code, Settings, BotMessageSquare, Loader2 } from "lucide-react";
 import { DashboardHeader } from "@/components/dashboard/header";
-import { cn } from "@/lib/utils";
 
 const menuItems = [
   { href: "/dashboard", label: "Chat", icon: MessageSquare },
@@ -30,6 +31,22 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  }, [status, router]);
+
+  if (status === "loading" || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-background">
+        <Loader2 className="h-16 w-16 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <SidebarProvider>
