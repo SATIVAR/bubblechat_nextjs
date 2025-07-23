@@ -11,6 +11,13 @@
 - Autenticação via sistema próprio e **Google Auth**.
 - Planos de licença: Básico, Profissional e Enterprise.
 
+...
+Credenciais para teste:
+
+Email: admin@bubblechat.com
+Senha: admin
+...
+
 ### 2. Objetivos do Produto
 
 1. Automatizar extração de dados de diferentes formatos de documentos.

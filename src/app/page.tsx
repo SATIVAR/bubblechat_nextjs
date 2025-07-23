@@ -26,6 +26,7 @@ export default function Home() {
       redirect: false,
       email,
       password,
+      callbackUrl: `${process.env.NEXT_PUBLIC_URL}/dashboard`,
     });
     
     setIsLoading(false);
@@ -37,7 +38,7 @@ export default function Home() {
         variant: "destructive",
       });
     } else if (result?.ok) {
-      router.push("/dashboard");
+      router.push(result.url || "/dashboard");
     }
   };
 
@@ -76,6 +77,7 @@ export default function Home() {
                     id="password"
                     type="password"
                     required
+                    placeholder="admin"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isLoading}
