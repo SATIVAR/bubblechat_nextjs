@@ -3,39 +3,93 @@
 
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { BotMessageSquare } from "lucide-react";
-
-const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px" {...props}>
-        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
-        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
-        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
-        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.574l6.19,5.238C39.902,35.666,44,30.138,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
-    </svg>
-);
-
+import { FormEvent, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
+
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+    
+    setIsLoading(false);
+
+    if (result?.error) {
+      toast({
+        title: "Falha no Login",
+        description: "Credenciais inválidas. Por favor, tente novamente.",
+        variant: "destructive",
+      });
+    } else if (result?.ok) {
+      router.push("/dashboard");
+    }
+  };
+
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-background">
-      <div className="flex flex-col items-center justify-center gap-4 text-center">
-        <div className="bg-primary text-primary-foreground p-4 rounded-full">
-          <BotMessageSquare className="w-12 h-12" />
+      <div className="w-full max-w-sm">
+        <div className="flex flex-col items-center justify-center gap-4 text-center mb-8">
+            <div className="bg-primary text-primary-foreground p-4 rounded-full">
+            <BotMessageSquare className="w-12 h-12" />
+            </div>
+            <h1 className="text-5xl font-headline font-bold text-primary">
+            Bem-vindo ao Bubble Chat
+            </h1>
+            <p className="max-w-md text-foreground/80">
+            Faça login para gerenciar sua plataforma de IA.
+            </p>
         </div>
-        <h1 className="text-5xl font-headline font-bold text-primary">
-          Bem-vindo ao Bubble Chat
-        </h1>
-        <p className="max-w-md text-foreground/80">
-          Otimize seu fluxo de trabalho com um chat inteligente. Faça login para começar a conversar.
-        </p>
-         <Button 
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-            className="mt-8"
-            size="lg"
-            >
-            <GoogleIcon className="mr-2" />
-            Entrar com Google
-          </Button>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                    id="email"
+                    type="email"
+                    placeholder="admin@bubblechat.com"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isLoading}
+                />
+            </div>
+             <div className="space-y-2">
+                <Label htmlFor="password">Senha</Label>
+                <Input
+                    id="password"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading}
+                />
+            </div>
+            <Button 
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={isLoading}
+                >
+                {isLoading ? "Entrando..." : "Entrar"}
+            </Button>
+        </form>
       </div>
     </main>
   );
