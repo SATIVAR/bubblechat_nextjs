@@ -33,7 +33,7 @@ export function LoginForm({ className }: { className?: string }) {
   };
 
   return (
-    <Card className={cn("w-full max-w-sm", className)}>
+    <Card className={cn("w-full max-w-sm bg-card", className)}>
       <form onSubmit={handleSignIn}>
         <CardHeader>
           <CardTitle className="text-2xl font-headline">Login</CardTitle>
@@ -52,7 +52,7 @@ export function LoginForm({ className }: { className?: string }) {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button type="submit" className="w-full bg-primary hover:bg-primary/90">Entrar com E-mail</Button>
+          <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">Entrar com E-mail</Button>
           <div className="relative w-full">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />

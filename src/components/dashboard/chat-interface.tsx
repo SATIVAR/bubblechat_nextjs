@@ -18,7 +18,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending} size="icon" className="flex-shrink-0">
+    <Button type="submit" disabled={pending} size="icon" className="flex-shrink-0 rounded-full bg-primary text-primary-foreground hover:bg-primary/90">
       {pending ? (
         <Loader2 className="h-5 w-5 animate-spin" />
       ) : (
@@ -35,15 +35,15 @@ function MessageBubble({ role, content }: { role: Role, content: Part[] }) {
     const mediaContent = content.find(p => p.media);
 
     return (
-        <div className={cn("flex items-start gap-3 my-4 animate-in", isUser ? "justify-end" : "justify-start")}>
+        <div className={cn("flex items-start gap-3 my-4", isUser ? "justify-end" : "justify-start")}>
             {!isUser && (
-                <Avatar className="h-8 w-8">
-                    <AvatarFallback><Bot /></AvatarFallback>
+                <Avatar className="h-8 w-8 bg-secondary text-secondary-foreground">
+                    <AvatarFallback><Bot size={20} /></AvatarFallback>
                 </Avatar>
             )}
             <div className={cn(
-                "max-w-xs md:max-w-md lg:max-w-lg rounded-xl p-3 shadow-sm", 
-                isUser ? "bg-primary text-primary-foreground" : "bg-secondary"
+                "max-w-xs md:max-w-md lg:max-w-lg rounded-xl p-3", 
+                isUser ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
             )}>
                 {textContent && <p className="text-sm whitespace-pre-wrap">{textContent}</p>}
                 {mediaContent?.media?.url && (
@@ -109,7 +109,7 @@ export function ChatInterface() {
 
 
   return (
-      <Card className="h-[75vh] flex flex-col">
+      <Card className="h-[calc(100vh-12rem)] flex flex-col border-0 shadow-none">
         <CardHeader>
              {state.status === 'error' && state.message && (
                 <Alert variant="destructive" className="mt-4">
@@ -119,8 +119,8 @@ export function ChatInterface() {
                 </Alert>
             )}
         </CardHeader>
-        <CardContent className="flex-1 overflow-hidden">
-            <ScrollArea className="h-full" ref={scrollAreaRef}>
+        <CardContent className="flex-1 overflow-hidden px-2">
+            <ScrollArea className="h-full px-4" ref={scrollAreaRef}>
                  {(!state.chatHistory || state.chatHistory.length === 0) && (
                     <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
                         <Bot className="h-12 w-12 mb-4" />
@@ -133,7 +133,7 @@ export function ChatInterface() {
                 ))}
             </ScrollArea>
         </CardContent>
-        <CardFooter className="border-t p-4">
+        <CardFooter className="border-t p-4 bg-background">
           <form ref={formRef} action={formAction} className="flex items-center gap-2 w-full">
             <input type="hidden" name="history" value={JSON.stringify(state.chatHistory)} />
              <input
@@ -144,17 +144,17 @@ export function ChatInterface() {
               className="hidden"
               id="file-upload"
             />
-            <Button asChild variant="outline" size="icon" className="flex-shrink-0">
+            <Button asChild variant="ghost" size="icon" className="flex-shrink-0 text-muted-foreground">
                <label htmlFor="file-upload" className="cursor-pointer">
                 <Paperclip className="h-5 w-5" />
                 <span className="sr-only">Anexar arquivo</span>
               </label>
             </Button>
             <div className="flex-1 relative">
-                <Input name="message" placeholder="Digite sua mensagem..." autoComplete="off" required />
+                <Input name="message" placeholder="Digite sua mensagem..." autoComplete="off" required className="rounded-full" />
                 {file && (
-                    <div className="absolute bottom-12 left-0 bg-secondary p-2 rounded-lg text-sm flex items-center gap-2">
-                        <span>{file.name}</span>
+                    <div className="absolute bottom-12 left-0 bg-secondary p-2 rounded-lg text-sm flex items-center gap-2 shadow-sm">
+                        <span className="text-secondary-foreground">{file.name}</span>
                         <Button variant="ghost" size="icon" onClick={removeFile} className="h-6 w-6">
                             <X className="h-4 w-4"/>
                         </Button>

@@ -38,7 +38,7 @@ export function DashboardHeader() {
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">Usuário Admin</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  admin@docuquota.com
+                  admin@bubblechat.com
                 </p>
               </div>
             </DropdownMenuLabel>
