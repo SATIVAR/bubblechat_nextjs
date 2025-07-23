@@ -10,22 +10,22 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 const quotations = [
-  { id: "Q-001", client: "Innovate Inc.", date: "2023-10-26", amount: "$1,250.00", status: "Accepted" },
-  { id: "Q-002", client: "Synergy Corp.", date: "2023-10-24", amount: "$3,400.00", status: "Pending" },
-  { id: "Q-003", client: "Global Solutions", date: "2023-10-22", amount: "$800.50", status: "Draft" },
-  { id: "Q-004", client: "Tech-Forward", date: "2023-10-21", amount: "$5,600.00", status: "Declined" },
-  { id: "Q-005", client: "Innovate Inc.", date: "2023-10-18", amount: "$2,100.00", status: "Accepted" },
+  { id: "Q-001", client: "Innovate Inc.", date: "2023-10-26", amount: "R$1.250,00", status: "Aceita" },
+  { id: "Q-002", client: "Synergy Corp.", date: "2023-10-24", amount: "R$3.400,00", status: "Pendente" },
+  { id: "Q-003", client: "Global Solutions", date: "2023-10-22", amount: "R$800,50", status: "Rascunho" },
+  { id: "Q-004", client: "Tech-Forward", date: "2023-10-21", amount: "R$5.600,00", status: "Recusada" },
+  { id: "Q-005", client: "Innovate Inc.", date: "2023-10-18", amount: "R$2.100,00", status: "Aceita" },
 ];
 
 
 export default function HistoryPage() {
   const getStatusVariant = (status: string) => {
     switch (status) {
-      case "Accepted":
+      case "Aceita":
         return "default";
-      case "Pending":
+      case "Pendente":
         return "secondary";
-      case "Declined":
+      case "Recusada":
         return "destructive";
       default:
         return "outline";
@@ -35,25 +35,25 @@ export default function HistoryPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold font-headline">Quotation History</h1>
+        <h1 className="text-3xl font-bold font-headline">Histórico de Cotações</h1>
         <p className="text-muted-foreground">
-          Review and manage all past quotations generated.
+          Revise e gerencie todas as cotações geradas anteriormente.
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Recent Quotations</CardTitle>
-          <CardDescription>A list of your most recent quotations.</CardDescription>
+          <CardTitle>Cotações Recentes</CardTitle>
+          <CardDescription>Uma lista das suas cotações mais recentes.</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Quote ID</TableHead>
-                <TableHead>Client</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Amount</TableHead>
+                <TableHead>ID da Cotação</TableHead>
+                <TableHead>Cliente</TableHead>
+                <TableHead>Data</TableHead>
+                <TableHead>Valor</TableHead>
                 <TableHead>Status</TableHead>
               </TableRow>
             </TableHeader>

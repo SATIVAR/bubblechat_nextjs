@@ -11,7 +11,7 @@ const fileToDataURI = async (file: File): Promise<string> => {
 };
 
 const formSchema = z.object({
-  document: z.instanceof(File).refine((file) => file.size > 0, { message: "Document is required." }),
+  document: z.instanceof(File).refine((file) => file.size > 0, { message: "O documento é obrigatório." }),
   historicalData: z.string().optional(),
   adminParams: z.string().optional(),
 });
@@ -37,7 +37,7 @@ export async function handleGenerateQuotation(
     if (!validatedFields.success) {
       return {
         status: "error",
-        message: "Invalid form data. Please check your inputs.",
+        message: "Dados do formulário inválidos. Por favor, verifique seus dados.",
       };
     }
     
@@ -50,37 +50,37 @@ export async function handleGenerateQuotation(
     if (!extractionResult?.extractedData) {
       return {
         status: "error",
-        message: "Failed to extract data from the document.",
+        message: "Falha ao extrair dados do documento.",
       };
     }
     
     const quotationResult = await generateQuotation({
         extractedData: extractionResult.extractedData,
         historicalClientData: historicalData,
-        adminDefinedParameters: adminParams || "Standard pricing model"
+        adminDefinedParameters: adminParams || "Modelo de precificação padrão"
     });
 
     if (!quotationResult?.quotation) {
         return {
             status: "error",
-            message: "Failed to generate quotation.",
+            message: "Falha ao gerar a cotação.",
             extractedData: extractionResult.extractedData,
         }
     }
 
     return {
       status: "success",
-      message: "Quotation generated successfully.",
+      message: "Cotação gerada com sucesso.",
       extractedData: extractionResult.extractedData,
       quotation: quotationResult.quotation,
     };
 
   } catch (error) {
     console.error(error);
-    const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
+    const errorMessage = error instanceof Error ? error.message : "Ocorreu um erro desconhecido.";
     return {
       status: "error",
-      message: `An error occurred: ${errorMessage}`,
+      message: `Ocorreu um erro: ${errorMessage}`,
     };
   }
 }

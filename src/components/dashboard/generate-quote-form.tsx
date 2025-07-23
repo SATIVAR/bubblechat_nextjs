@@ -21,10 +21,10 @@ function SubmitButton() {
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Generating...
+          Gerando...
         </>
       ) : (
-        "Generate Quotation"
+        "Gerar Cotação"
       )}
     </Button>
   );
@@ -44,14 +44,14 @@ export function GenerateQuoteForm() {
   useEffect(() => {
     if (state.status === 'success') {
       toast({
-        title: "Success!",
+        title: "Sucesso!",
         description: state.message,
         variant: "default",
       });
       formRef.current?.reset();
     } else if (state.status === 'error') {
       toast({
-        title: "Error",
+        title: "Erro",
         description: state.message,
         variant: "destructive",
       });
@@ -66,23 +66,23 @@ export function GenerateQuoteForm() {
         <form ref={formRef} action={formAction}>
           <Card>
             <CardHeader>
-              <CardTitle>Quotation Parameters</CardTitle>
+              <CardTitle>Parâmetros da Cotação</CardTitle>
               <CardDescription>
-                Provide the necessary document and data to generate a quote.
+                Forneça o documento e os dados necessários para gerar uma cotação.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="document">Document for Quotation</Label>
+                <Label htmlFor="document">Documento para Cotação</Label>
                 <Input id="document" name="document" type="file" required className="file:text-foreground"/>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="historicalData">Historical Client Data (Optional)</Label>
-                <Textarea id="historicalData" name="historicalData" placeholder="e.g., Previous orders, client preferences..." />
+                <Label htmlFor="historicalData">Dados Históricos do Cliente (Opcional)</Label>
+                <Textarea id="historicalData" name="historicalData" placeholder="Ex: Pedidos anteriores, preferências do cliente..." />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="adminParams">Admin-Defined Parameters (Optional)</Label>
-                <Textarea id="adminParams" name="adminParams" placeholder="e.g., Special discounts, pricing tiers..." />
+                <Label htmlFor="adminParams">Parâmetros Definidos pelo Admin (Opcional)</Label>
+                <Textarea id="adminParams" name="adminParams" placeholder="Ex: Descontos especiais, níveis de preço..." />
               </div>
             </CardContent>
             <CardFooter>
@@ -93,7 +93,7 @@ export function GenerateQuoteForm() {
          {state.status === 'error' && state.message && (
           <Alert variant="destructive" className="mt-4">
             <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Request Failed</AlertTitle>
+            <AlertTitle>Falha na Solicitação</AlertTitle>
             <AlertDescription>{state.message}</AlertDescription>
           </Alert>
         )}
@@ -102,9 +102,9 @@ export function GenerateQuoteForm() {
       <div className="lg:col-span-3">
         <Card className="h-full">
             <CardHeader>
-              <CardTitle>Generated Results</CardTitle>
+              <CardTitle>Resultados Gerados</CardTitle>
               <CardDescription>
-                The extracted data and generated quotation will appear here.
+                Os dados extraídos e a cotação gerada aparecerão aqui.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -122,13 +122,13 @@ export function GenerateQuoteForm() {
             ) : state.status === 'success' ? (
                 <>
                 <div>
-                  <h3 className="text-lg font-semibold flex items-center mb-2"><FileText className="mr-2 h-5 w-5 text-primary"/> Extracted Data</h3>
+                  <h3 className="text-lg font-semibold flex items-center mb-2"><FileText className="mr-2 h-5 w-5 text-primary"/> Dados Extraídos</h3>
                   <div className="p-4 bg-secondary rounded-lg text-sm text-secondary-foreground max-h-60 overflow-y-auto">
                     <pre className="whitespace-pre-wrap font-body">{state.extractedData}</pre>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold flex items-center mb-2"><CheckCircle2 className="mr-2 h-5 w-5 text-green-600"/> Generated Quotation</h3>
+                  <h3 className="text-lg font-semibold flex items-center mb-2"><CheckCircle2 className="mr-2 h-5 w-5 text-green-600"/> Cotação Gerada</h3>
                   <div className="p-4 border-2 border-dashed border-accent/50 bg-accent/10 rounded-lg text-sm text-foreground">
                     <pre className="whitespace-pre-wrap font-body">{state.quotation}</pre>
                   </div>
@@ -139,7 +139,7 @@ export function GenerateQuoteForm() {
                     <div className="bg-primary/10 p-4 rounded-full mb-4">
                         <FileText className="w-8 h-8 text-primary" />
                     </div>
-                    <p className="text-muted-foreground">Your results will be displayed here.</p>
+                    <p className="text-muted-foreground">Seus resultados serão exibidos aqui.</p>
                 </div>
             )}
             </CardContent>

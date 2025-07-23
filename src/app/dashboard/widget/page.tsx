@@ -3,22 +3,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Copy } from "lucide-react";
 
 export default function WidgetPage() {
-  const embedCode = `<script src="https://docuquota.com/widget.js" data-id="YOUR_UNIQUE_ID" async defer></script>`;
+  const embedCode = `<script src="https://docuquota.com/widget.js" data-id="SEU_ID_UNICO" async defer></script>`;
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold font-headline">Widget Integration</h1>
+        <h1 className="text-3xl font-bold font-headline">Integração do Widget</h1>
         <p className="text-muted-foreground">
-          Embed the DocuQuota widget on your website to allow clients to upload documents directly.
+          Incorpore o widget DocuQuota em seu site para permitir que os clientes carreguem documentos diretamente.
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Embed Code</CardTitle>
+          <CardTitle>Código de Incorporação</CardTitle>
           <CardDescription>
-            Copy and paste this code into the `<head>` or `<body>` section of your website's HTML.
+            Copie e cole este código na seção `<head>` ou `<body>` do HTML do seu site.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -33,7 +33,7 @@ export default function WidgetPage() {
               onClick={() => navigator.clipboard.writeText(embedCode)}
             >
               <Copy className="h-4 w-4" />
-              <span className="sr-only">Copy code</span>
+              <span className="sr-only">Copiar código</span>
             </Button>
           </div>
         </CardContent>
@@ -41,8 +41,8 @@ export default function WidgetPage() {
       
       <Card>
         <CardHeader>
-            <CardTitle>Preview</CardTitle>
-             <CardDescription>This is a preview of how the widget will appear on your site.</CardDescription>
+            <CardTitle>Pré-visualização</CardTitle>
+             <CardDescription>Esta é uma pré-visualização de como o widget aparecerá no seu site.</CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-center p-8 bg-secondary/50 rounded-lg">
              <div className="fixed bottom-8 right-8">

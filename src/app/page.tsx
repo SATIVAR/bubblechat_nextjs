@@ -9,10 +9,10 @@ export default function Home() {
           <FileText className="w-10 h-10" />
         </div>
         <h1 className="text-4xl font-headline font-bold text-primary">
-          Welcome to DocuQuota
+          Bem-vindo ao DocuQuota
         </h1>
         <p className="max-w-md text-foreground/80">
-          Streamline your workflow with AI-powered document parsing and smart quoting. Sign in to continue.
+          Otimize seu fluxo de trabalho com análise de documentos e cotações inteligentes por IA. Faça login para continuar.
         </p>
       </div>
       <LoginForm className="mt-8" />

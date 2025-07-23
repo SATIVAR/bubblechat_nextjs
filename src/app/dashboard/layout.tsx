@@ -18,10 +18,10 @@ import { DashboardHeader } from "@/components/dashboard/header";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { href: "/dashboard", label: "Generate Quote", icon: FileText },
-  { href: "/dashboard/history", label: "History", icon: History },
+  { href: "/dashboard", label: "Gerar Cotação", icon: FileText },
+  { href: "/dashboard/history", label: "Histórico", icon: History },
   { href: "/dashboard/widget", label: "Widget", icon: Code },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard/settings", label: "Configurações", icon: Settings },
 ];
 
 export default function DashboardLayout({

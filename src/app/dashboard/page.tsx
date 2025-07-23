@@ -4,9 +4,9 @@ export default function GenerateQuotePage() {
   return (
     <div className="space-y-6">
        <div>
-        <h1 className="text-3xl font-bold font-headline">Smart Quoting</h1>
+        <h1 className="text-3xl font-bold font-headline">Cotação Inteligente</h1>
         <p className="text-muted-foreground">
-          Upload a document to parse its data and generate a dynamic quotation.
+          Carregue um documento para analisar seus dados e gerar uma cotação dinâmica.
         </p>
       </div>
       <GenerateQuoteForm />

@@ -38,34 +38,34 @@ export function LoginForm({ className }: { className?: string }) {
         <CardHeader>
           <CardTitle className="text-2xl font-headline">Login</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account.
+            Digite seu e-mail abaixo para fazer login na sua conta.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" required />
+            <Label htmlFor="email">E-mail</Label>
+            <Input id="email" type="email" placeholder="nome@exemplo.com" required />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Senha</Label>
             <Input id="password" type="password" required />
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button type="submit" className="w-full bg-primary hover:bg-primary/90">Sign in with Email</Button>
+          <Button type="submit" className="w-full bg-primary hover:bg-primary/90">Entrar com E-mail</Button>
           <div className="relative w-full">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-card px-2 text-muted-foreground">
-                Or continue with
+                Ou continue com
               </span>
             </div>
           </div>
           <Button variant="outline" className="w-full" type="button" onClick={() => router.push("/dashboard")}>
             <GoogleIcon className="mr-2" />
-            Sign in with Google
+            Entrar com Google
           </Button>
         </CardFooter>
       </form>

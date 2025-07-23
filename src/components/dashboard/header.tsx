@@ -29,14 +29,14 @@ export function DashboardHeader() {
             <Button variant="ghost" className="relative h-10 w-10 rounded-full">
               <Avatar className="h-10 w-10">
                 <AvatarImage src="https://placehold.co/100x100.png" alt="@user" data-ai-hint="person portrait" />
-                <AvatarFallback>AU</AvatarFallback>
+                <AvatarFallback>UA</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">Admin User</p>
+                <p className="text-sm font-medium leading-none">Usuário Admin</p>
                 <p className="text-xs leading-none text-muted-foreground">
                   admin@docuquota.com
                 </p>
@@ -45,20 +45,20 @@ export function DashboardHeader() {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
               <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
+              <span>Perfil</span>
             </DropdownMenuItem>
              <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
               <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
+              <span>Configurações</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <LifeBuoy className="mr-2 h-4 w-4" />
-              <span>Support</span>
+              <span>Suporte</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => router.push('/')}>
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
+              <span>Sair</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
