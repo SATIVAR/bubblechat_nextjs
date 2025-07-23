@@ -26,7 +26,6 @@ export default function Home() {
       redirect: false,
       email,
       password,
-      callbackUrl: `${process.env.NEXT_PUBLIC_URL}/dashboard`,
     });
     
     setIsLoading(false);
@@ -38,7 +37,7 @@ export default function Home() {
         variant: "destructive",
       });
     } else if (result?.ok) {
-      router.push(result.url || "/dashboard");
+      router.push("/dashboard");
     }
   };
 
