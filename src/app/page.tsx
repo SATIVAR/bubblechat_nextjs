@@ -1,8 +1,6 @@
 
 "use client";
 
-import { loginComCredenciais } from '@/services/authService';
-
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,14 +17,6 @@ export default function Home() {
   const { toast } = useToast();
   const router = useRouter();
 
-const handleLogin = async (email, password) => {
-  const result = await loginComCredenciais(email, password);
-  if (result.success) {
-    // Redireciona para o dashboard
-  } else {
-    // Mostra o erro
-  }
-};
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setIsLoading(true);

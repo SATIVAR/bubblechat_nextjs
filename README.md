@@ -62,11 +62,11 @@ Senha: admin
 
 ### 7. Autenticação e Segurança
 
-- **Firebase Authentication**: suporte a e-mail/senha e Google OAuth.
+- **NextJS**: suporte a e-mail/senha.
 - **JWT** para APIs, com roles (super\_admin, client, employee).
 - **CORS** configurado apenas para domínios registrados.
 - **SSL/TLS** obrigatório (HTTPS em todas as chamadas).
-- **Store de segredos**: Firebase Functions config.
+- **Store de segredos**: ?
 
 ### 8. Roadmap de Licenciamento
 
